@@ -1,0 +1,27 @@
+[
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\ESonif.Build.cs",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\ESonif.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\ESonif.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\ESonifGameModeBase.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\ESonifGameModeBase.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	}
+]
