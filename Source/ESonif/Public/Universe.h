@@ -2,25 +2,44 @@
 
 #pragma once
 
+#include "Agent.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "TestActor.generated.h"
+#include "Universe.generated.h"
 
 UCLASS()
-class ESONIF_API ATestActor : public AActor
+class ESONIF_API AUniverse : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	ATestActor();
+	AUniverse();
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+private:
+	TSubclassOf<class AAgent> AgentClass;		
+	TArray<AActor*> Agents;	
+	AAgent* Agent;
+	UPROPERTY(EditAnywhere, Category = "Custom")
+	int Num_Agents = 10; 
+	float UniverseSize = 1000.0f;
+
+	FVector InitLocation;
+	FRotator InitRotation;
+	float value; // auxiliar uses
+
+
+
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	void Initialization();
+	void Update();
 
 };

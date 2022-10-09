@@ -1,0 +1,69 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+
+#include "Agent.h"
+#include "UtilsLib.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/SceneComponent.h"
+#include "GenericPlatform/GenericPlatformMath.h"
+#include "Math/UnrealMathVectorCommon.h"
+
+// Sets default values
+AAgent::AAgent()
+{
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = false;	
+	AgentMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Agent Mesh"));
+	RootComponent = AgentMesh;
+
+}
+
+// Called when the game starts or when spawned
+void AAgent::BeginPlay()
+{
+	Super::BeginPlay();
+	AgentMesh->GetChildrenComponents(false,MeshChildren);	
+	Material = AgentMesh->GetMaterial(0);
+	DynMaterial = UMaterialInstanceDynamic::Create(Material, NULL);	
+	
+}
+
+// Called every frame
+void AAgent::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+
+}
+
+
+void AAgent::Update()
+{
+
+}
+void AAgent::SetColor(FVector value)
+{
+	Color = value;
+	DynMaterial->SetVectorParameterValue(FName(TEXT("Color")), FLinearColor(FVector(Color)));
+	AgentMesh->SetMaterial(0, DynMaterial); 	
+	
+}
+FVector AAgent::GetColor()
+{
+	return Color;
+}
+void AAgent::SetSize(FVector value)
+{
+	Size = value;
+}
+FVector AAgent::GetSize()
+{
+	return Size;
+}
+void AAgent::SetForwardDirection(FVector value)
+{
+	ForwardDirection = value;
+}
+FVector AAgent::GetForwardDirection()
+{
+	return ForwardDirection;
+}
