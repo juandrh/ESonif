@@ -25,12 +25,14 @@ private:
 	TArray<AActor*> Agents;	
 	AAgent* Agent;
 	UPROPERTY(EditAnywhere, Category = "Custom")
-	int Num_Agents = 10; 
+	int Num_Agents = 500; 
 	float UniverseSize = 1000.0f;
 
 	FVector InitLocation;
 	FRotator InitRotation;
 	float value; // auxiliar uses
+	UPROPERTY(EditAnywhere, Category = "Custom")
+	float Impulse=1200.0f;
 
 
 

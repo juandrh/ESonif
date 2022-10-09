@@ -28,6 +28,7 @@ protected:
 	FVector Size;	
 	FVector ForwardDirection;
 
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -39,6 +40,7 @@ public:
 	FVector GetSize();
 	void SetForwardDirection(FVector value);
 	FVector GetForwardDirection();
+	void move(float value);
 	
 			
 

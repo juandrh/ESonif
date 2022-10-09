@@ -14,6 +14,7 @@ AAgent::AAgent()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;	
 	AgentMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Agent Mesh"));
+	AgentMesh->SetSimulatePhysics(true);
 	RootComponent = AgentMesh;
 
 }
@@ -66,4 +67,12 @@ void AAgent::SetForwardDirection(FVector value)
 FVector AAgent::GetForwardDirection()
 {
 	return ForwardDirection;
+}
+void AAgent::move(float value)
+{
+	FVector Forward = FVector(0.0,value,0.0);
+	UStaticMeshComponent* RootMeshComponent = Cast<UStaticMeshComponent>(this->GetRootComponent());
+	//RootMeshComponent->GetChildrenComponents(false,MeshChildren);	
+
+	RootMeshComponent->AddImpulse(Forward );
 }

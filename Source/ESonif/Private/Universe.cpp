@@ -34,6 +34,7 @@ void AUniverse::BeginPlay()
 void AUniverse::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+	Update();
 
 }
 
@@ -57,7 +58,7 @@ void AUniverse::Initialization()
 	{
 		/* Agent = Cast<AAgent>(actor);			
 		value = FMath::FRand();	
-		//UE_LOG(LogTemp, Warning,TEXT("V->   %f : "), PercentPredator);   
+		// 
 		
 		//Agent->SetColor(FVector(FMath::FRand()*0.6+0.3,FMath::FRand()*0.1f,0.0f));		
 		value = FMath::FRand()*0.2+0.05;
@@ -69,5 +70,10 @@ void AUniverse::Initialization()
 }
 void AUniverse::Update()
 {
-
+	for (AActor* actor : Agents)	
+	{
+		Agent = Cast<AAgent>(actor);			
+		Agent->move(Impulse);
+		
+	}
 }
