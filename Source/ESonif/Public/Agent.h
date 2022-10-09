@@ -40,7 +40,7 @@ public:
 	FVector GetSize();
 	void SetForwardDirection(FVector value);
 	FVector GetForwardDirection();
-	void move(float value);
+	void move(FVector value);
 	
 			
 

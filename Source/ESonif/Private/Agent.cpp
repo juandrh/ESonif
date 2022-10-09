@@ -68,9 +68,9 @@ FVector AAgent::GetForwardDirection()
 {
 	return ForwardDirection;
 }
-void AAgent::move(float value)
+void AAgent::move(FVector value)
 {
-	FVector Forward = FVector(0.0,value,0.0);
+	FVector Forward = value;
 	UStaticMeshComponent* RootMeshComponent = Cast<UStaticMeshComponent>(this->GetRootComponent());
 	//RootMeshComponent->GetChildrenComponents(false,MeshChildren);	
 
