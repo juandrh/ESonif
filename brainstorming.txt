@@ -1,0 +1,16 @@
+
+Elements of the universe:
+- Ground:
+	- energy_storage_capacity (E)
+	- states: (time,Plants↓,veget_E ↓,carniv_E ↓)  -> ground_E ↑ 
+- Plant:
+	- energy_storage_capacity (E)
+	- states: growth (ground_E ↓, plant_E ↑)  , adult (ground_E ↓, plant_E ), dying (ground_E ↑, plant_E ↓)	
+	- adult -> reproduce
+
+- vegetarian:
+	- energy_storage_capacity (E)
+	- states: growth (plant_E ↓, veget_E ↑)  , adult (plant_E ↓, veget_E ↑ ), dying (ground_E ↑, veget_E ↓)	
+- carnivorous:
+	- energy_storage_capacity (E)
+ 	- states: growth (veget_E ↓, carniv ↑)  , adult (veget_E ↓, carniv ↑ ), dying (ground_E ↑, carniv_E ↓)	
