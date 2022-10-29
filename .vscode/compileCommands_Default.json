@@ -23,5 +23,45 @@
 		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\ESonifGameModeBase.h",
 		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
 		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Private\\Agent.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Private\\Export_Data_BP_FunctionLibrary.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Private\\Universe.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Private\\UtilsLib.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Public\\Agent.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Public\\Export_Data_BP_FunctionLibrary.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Public\\Universe.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\Source\\ESonif\\Public\\UtilsLib.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\BuildTools\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default\\ESonif.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
 	}
 ]
