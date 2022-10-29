@@ -12,9 +12,9 @@ class ESONIF_API AAgent : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
+	// Sets default values for this actor's properties ,BlueprintReadWrite
 	AAgent();
-	UPROPERTY(EditDefaultsOnly, Category = "Custom")
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category = "Custom")
 	UStaticMeshComponent* AgentMesh;
 
 protected:

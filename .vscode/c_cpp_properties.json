@@ -1,14 +1,19 @@
 {
-	"configurations": [
-		{
-			"name": "ESonifEditor Editor Win64 Development (ESonif)",
-			"intelliSenseMode": "msvc-x64",
-			"compileCommands": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_ESonif.json"
-		},
-		{
-			"name": "Win32",
-			"intelliSenseMode": "msvc-x64",
-			"compileCommands": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default.json"
-		}
-	]
+    "configurations": [
+        {
+            "name": "ESonifEditor Editor Win64 Development (ESonif)",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_ESonif.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Win32",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Users\\juan_\\Documents\\Unreal Projects\\ESonif\\.vscode\\compileCommands_Default.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
 }

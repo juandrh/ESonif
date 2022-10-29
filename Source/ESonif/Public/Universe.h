@@ -32,7 +32,7 @@ private:
 	FRotator InitRotation;
 	float value; // auxiliar uses
 	UPROPERTY(EditAnywhere, Category = "Custom")
-	FVector Impulse=FVector(0.0f,1200.0f,0.0f);
+	FVector Impulse=FVector(0.0f,200.0f,0.0f);
 
 
 
