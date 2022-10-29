@@ -2,12 +2,13 @@
 
 
 #include "Universe.h"
-
+#include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "Kismet/GameplayStatics.h"
 #include "Math/Transform.h"
 #include "UObject/ConstructorHelpers.h"
+
 
 // Sets default values
 AUniverse::AUniverse()
@@ -38,12 +39,17 @@ void AUniverse::Tick(float DeltaTime)
 
 }
 
+
+
+
 void AUniverse::Initialization()
 {
 	Agents.Empty();
-
 	FActorSpawnParameters SpawnInfo; 
-	for (int i=0; i < Num_Agents; i++ )
+
+	
+
+	 for (int i=0; i < numAgents; i++ )
 	{	
 		InitLocation = FVector(
 			(UniverseSize-400)*FMath::FRand()+200,
@@ -52,7 +58,7 @@ void AUniverse::Initialization()
 		InitRotation = FRotator(0.0f, 0.0f,0.0f );
 		//InitRotation = FRotator(360*FMath::FRand(), 360*FMath::FRand(),0.0f );
 		Agents.Add(GetWorld()->SpawnActor<AAgent>(AgentClass, InitLocation, InitRotation, SpawnInfo)); 
-	}
+	} 
 
 	for (AActor* actor : Agents)	
 	{
@@ -68,12 +74,46 @@ void AUniverse::Initialization()
 
 
 }
+
+void AUniverse::restartUniverse()
+{
+	for (AActor* actor : Agents)	
+	{
+		actor->Destroy();
+		/* Agent = Cast<AAgent>(actor);	
+		Agents.Remove(Agent);		
+		//Agent = NULL;
+		Agent->Destroy(); */
+
+		
+	}
+	Initialization();
+	
+}
 void AUniverse::Update()
 {
 	for (AActor* actor : Agents)	
 	{
 		Agent = Cast<AAgent>(actor);			
-		Agent->move(Impulse);
+		Agent->move(impulse);
 		
 	}
+}
+
+void AUniverse::SetImpulse(FVector newImpulse)
+{
+	impulse = newImpulse;
+}
+FVector AUniverse::GetImpulse()
+{
+	return impulse;
+}
+void AUniverse::SetNumAgents(int32 number)
+{
+	numAgents= number;	
+}
+	
+int32 AUniverse::GetNumAgents()
+{
+	return numAgents;
 }

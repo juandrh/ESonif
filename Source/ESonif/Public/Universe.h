@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "Universe.generated.h"
 
+
 UCLASS()
 class ESONIF_API AUniverse : public AActor
 {
@@ -25,14 +26,14 @@ private:
 	TArray<AActor*> Agents;	
 	AAgent* Agent;
 	UPROPERTY(EditAnywhere, Category = "Custom")
-	int Num_Agents = 500; 
+	int numAgents = 10; 
 	float UniverseSize = 1000.0f;
 
 	FVector InitLocation;
 	FRotator InitRotation;
 	float value; // auxiliar uses
 	UPROPERTY(EditAnywhere, Category = "Custom")
-	FVector Impulse=FVector(0.0f,200.0f,0.0f);
+	FVector impulse=FVector(0.0f,0.0f,0.0f);
 
 
 
@@ -43,5 +44,15 @@ public:
 
 	void Initialization();
 	void Update();
+	UFUNCTION (BlueprintCallable,meta = (DisplayName = "Set Impulse"))
+	void SetImpulse(FVector newImpulse);
+	UFUNCTION (BlueprintCallable,meta = (DisplayName = "Get Impulse"))
+	FVector GetImpulse();
+	UFUNCTION (BlueprintCallable,meta = (DisplayName = "Set Number of Agents"))
+	void SetNumAgents(int32 number);
+	UFUNCTION (BlueprintCallable,meta = (DisplayName = "Get Number of Agents"))
+	int32 GetNumAgents();
+	UFUNCTION (BlueprintCallable,meta = (DisplayName = "Restart Universe"))
+	void restartUniverse();
 
 };
