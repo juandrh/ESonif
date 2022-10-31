@@ -7,7 +7,7 @@
 #include "Agent.generated.h"
 
 UCLASS()
-class ESONIF_API AAgent : public AActor
+class ESONIF_API AAgent : public APawn
 {
 	GENERATED_BODY()
 	
