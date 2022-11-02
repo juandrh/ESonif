@@ -49,6 +49,8 @@ void AUniverse::Initialization()
 	r2 = radius * radius;		 // Radius squared
 	v = r * gamma / 100; // Step size in pixels
 	s = r * size / 100;	 // Particle size (circles)
+	alphaRadians=(alpha/180)*pi;
+  	betaRadians=(beta/180)*pi;
 
 	for (int i = 0; i < numAgents; i++)
 	{
@@ -161,12 +163,16 @@ void AUniverse::SetSize(float number)
 void AUniverse::SetAlpha(float number)
 {
 	alpha = number;
+	alphaRadians=(alpha/180)*pi;
+  	betaRadians=(beta/180)*pi;
 	
 }
 
 void AUniverse::SetBeta(float number)
 {
 	beta = number;
+	alphaRadians=(alpha/180)*pi;
+  	betaRadians=(beta/180)*pi;
 }
 
 void AUniverse::SetGamma(float number)
@@ -174,6 +180,7 @@ void AUniverse::SetGamma(float number)
 	
 	gamma = number;
 	v = r * gamma / 100; // Step size in pixels
+	
 
 }
 
@@ -294,6 +301,7 @@ void AUniverse::moveAgents()
 	{
 		Agent = Cast<AAgent>(Agents[i]);
 		float deltaphi = alphaRadians + (betaRadians * Agent->N * sign(Agent->R - Agent->L)); // deltaphi = alpha + beta × N × sign(R - L)
+		//float deltaphi = alpha + (beta * Agent->N * sign(Agent->R - Agent->L));
 		Agent->phi = scope(Agent->phi + deltaphi, tau);							// Turn clockwise deltaphi
 		Agent->phiSin = FMath::Sin(Agent->phi);
 		Agent->phiCos = FMath::Cos(Agent->phi);
