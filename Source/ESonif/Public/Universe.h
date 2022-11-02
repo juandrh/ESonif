@@ -72,7 +72,7 @@ private:
 
 	float alphaRadians;
   	float betaRadians;
-	float maxN=1;
+	float proportionalNeib;
     int ticksElapsed;
 
 
@@ -114,5 +114,6 @@ public:
 	float sign(float x);	
 	void moveAgents();
 	void colorAgents();
+	FVector HSVToRGB( float H, float S, float V);
 
 };

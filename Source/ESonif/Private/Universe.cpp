@@ -296,7 +296,7 @@ void AUniverse::moveAgents()
 {
 	
 	v=r*gamma/100;
-	maxN = 1;
+	
 	for (int i = 0; i < numAgents; i++)
 	{
 		Agent = Cast<AAgent>(Agents[i]);
@@ -315,7 +315,7 @@ void AUniverse::moveAgents()
 		if(yCoor<0) yCoor=0;
 		Agent->SetActorLocation(FVector(xCoor,yCoor,20.0f));	
 		
-		if (Agent->N>maxN) maxN = Agent->N;
+		
 	}
 }
 
@@ -324,12 +324,86 @@ void AUniverse::colorAgents() {
     
   for (int i = 0; i < numAgents; i++){
 	Agent = Cast<AAgent>(Agents[i]);
-	float n=Agent->N;
-	maxN = 150;
-	Agent->SetColor(FVector(n/(maxN)+0.5,1-(n*n/maxN),n/maxN));
-	UE_LOG(LogTemp, Warning,TEXT("N->   %d , %f "), Agent->N,r);
+	
+	proportionalNeib = 10*Agent->N/(float)(numAgents);
+	float rc,gc,bc; 
+	if (proportionalNeib<0.15){
+		rc=  0;
+		gc = 1- proportionalNeib*2.0f;
+		bc= 0;
+	}else if (proportionalNeib<0.35){
+		rc=  proportionalNeib;
+		gc = 1- proportionalNeib*4.0f;
+		bc= 0;
+	}else if (proportionalNeib<0.55){
+		rc=  1-proportionalNeib*4.0f;;
+		gc = 0;
+		bc= proportionalNeib;;
+	} else {
+		rc=  1;
+		gc = 1;
+		bc= 1;
+	}
 
+	UE_LOG(LogTemp, Warning,TEXT("t->   : %f "), proportionalNeib);
 
+	Agent->SetColor(FVector( rc, gc, bc));
+	//Agent->SetColor(FVector(n*n/(maxN)+0.3,1-(n*n/maxN),n/maxN-0.5));
+	
+	
 
   }
+}
+
+FVector AUniverse::HSVToRGB( float H, float S, float V)
+{
+	float Min;
+	float Chroma;
+	float Hdash;
+	float X;
+	FVector RGB;
+ 
+	Chroma = S * V;
+	Hdash = H / 60.0;
+	X = Chroma * (1.0 - FMath::Abs(((int)Hdash % 2) - 1.0));
+ 
+	if(Hdash < 1.0)
+	{
+		RGB.X = Chroma;
+		RGB.Y = X;
+	}
+	else if(Hdash < 2.0)
+	{
+		RGB.X = X;
+		RGB.Y = Chroma;
+	}
+	else if(Hdash < 3.0)
+	{
+		RGB.Y = Chroma;
+		RGB.Z = X;
+	}
+	else if(Hdash < 4.0)
+	{
+		RGB.Y= X;
+		RGB.Z = Chroma;
+	}
+	else if(Hdash < 5.0)
+	{
+		RGB.X = X;
+		RGB.Z= Chroma;
+	}
+	else if(Hdash <= 6.0)
+	{
+		RGB.X = Chroma;
+		RGB.Z = X;
+	}
+ 
+	Min = V - Chroma;
+ 
+	RGB.X += Min;
+	RGB.Y += Min;
+	RGB.Z += Min;
+	
+	
+	return RGB;
 }
