@@ -10,7 +10,22 @@
 		}
 	],
 	"settings": {
-		"typescript.tsc.autoDetect": "off"
+		"typescript.tsc.autoDetect": "off",
+		"files.associations": {
+			"algorithm": "cpp",
+			"chrono": "cpp",
+			"limits": "cpp",
+			"random": "cpp",
+			"utility": "cpp",
+			"valarray": "cpp",
+			"ratio": "cpp",
+			"*.ipp": "cpp",
+			"regex": "cpp",
+			"xlocale": "cpp",
+			"xstring": "cpp",
+			"__locale": "cpp",
+			"__string": "cpp"
+		}
 	},
 	"extensions": {
 		"recommendations": [

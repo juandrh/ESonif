@@ -17,7 +17,12 @@ AAgent::AAgent()
 	AgentMesh->SetSimulatePhysics(true);
 	RootComponent = AgentMesh;
 
+	     
+ /*  	phiSin = FMath::Asin(phi);  
+ 	phiCos = FMath::Acos(phi);  */
+
 }
+
 
 // Called when the game starts or when spawned
 void AAgent::BeginPlay()
@@ -75,4 +80,12 @@ void AAgent::move(FVector value)
 	//RootMeshComponent->GetChildrenComponents(false,MeshChildren);	
 
 	RootMeshComponent->AddImpulse(Forward );
+}
+
+
+void AAgent::Rotate(FRotator rotation)    
+{
+	//MeshRotator = FRotator (0.0f, Velocity.Rotation().Yaw,0.0f);	
+	this->SetActorRotation(rotation)	;			
+		
 }
