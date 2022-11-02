@@ -31,7 +31,7 @@ void AAgent::BeginPlay()
 	AgentMesh->GetChildrenComponents(false,MeshChildren);	
 	Material = AgentMesh->GetMaterial(0);
 	DynMaterial = UMaterialInstanceDynamic::Create(Material, NULL);	
-	
+	SetColor(FVector(0.5,0.1,0.8));
 }
 
 // Called every frame

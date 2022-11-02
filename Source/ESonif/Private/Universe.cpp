@@ -41,45 +41,38 @@ void AUniverse::Initialization()
 {
 	isRestarting = true;
 	FActorSpawnParameters SpawnInfo;
+	float area = (pi * radius * radius);						   // Area covered by each particle
+	area = (area * numAgents) / density;						   // Total area required
+	float scale = FMath::Sqrt(UniverseSize * UniverseSize / area); // Scaled to area available
+
+	r = radius * scale;	 // Radius in pixels
+	r2 = radius * radius;		 // Radius squared
+	v = r * gamma / 100; // Step size in pixels
+	s = r * size / 100;	 // Particle size (circles)
 
 	for (int i = 0; i < numAgents; i++)
 	{
-		
 		if (distribution == 0.0f)
 		{
 			// Uniform distribution
 			InitLocation = FVector(
 				(UniverseSize)*FMath::FRand() + 0.0f ,
 				(UniverseSize)*FMath::FRand() + 0.0f ,
-				50.0f);
+				20.0f);
 		}
 		else
 		{
 			// Centre-weighted distribution
-			//float mx = FMath::FRand() * UniverseSize / 2;
 			InitLocation = FVector(
 				((FMath::FRand() + FMath::FRand() + FMath::FRand()) / 3) * UniverseSize ,
 				((FMath::FRand() + FMath::FRand() + FMath::FRand()) / 3) * UniverseSize,
-				50.0f);
+				20.0f);
 		}
-
 		InitRotation = FRotator(0.0f, 0.0f, 0.0f);
-		// InitRotation = FRotator(360*FMath::FRand(), 360*FMath::FRand(),0.0f );
-		// Agents.Add(GetWorld()->SpawnActor<AAgent>(AgentClass, InitLocation, InitRotation, SpawnInfo));
 		Agents[i] = GetWorld()->SpawnActor<AAgent>(AgentClass, InitLocation, InitRotation, SpawnInfo);
 	}
 
-	/* for (AActor* actor : Agents)
-	{
-		 Agent = Cast<AAgent>(actor);
-		value = FMath::FRand();
-		//
-
-		//Agent->SetColor(FVector(FMath::FRand()*0.6+0.3,FMath::FRand()*0.1f,0.0f));
-		value = FMath::FRand()*0.2+0.05;
-		//Agent->SetSize(FVector(value,value,value));
-
-	} */
+	
 	scaleRadii();
 	isRestarting = false;
 }
@@ -102,11 +95,14 @@ void AUniverse::restartUniverse()
 }
 void AUniverse::Update()
 {
-	
 		
 	countNeighbours();
 	moveAgents();
-	//colorAgents();
+
+	if(ticksElapsed==0)	colorAgents();
+
+	ticksElapsed++;
+	if(ticksElapsed>20) ticksElapsed=0;
 }
 
 void AUniverse::SetImpulse(FVector newImpulse)
@@ -122,10 +118,7 @@ void AUniverse::SetNumAgents(int32 number)
 	numAgentsChanged = number;
 }
 
-int32 AUniverse::GetNumAgents()
-{
-	return numAgents;
-}
+
 
 float AUniverse::scope(int val, int max)
 {
@@ -143,53 +136,39 @@ float AUniverse::sign(float x)
 void AUniverse::SetDensity(float number)
 {
 	density = number;
+
 	float area = (pi * radius * radius);						   // Area covered by each particle
 	area = (area * numAgents) / density;						   // Total area required
 	float scale = FMath::Sqrt(UniverseSize * UniverseSize / area); // Scaled to area available
 
 	r = radius * scale;	 // Radius in pixels
-	r2 = r * r;			 // Radius squared
+	r2 = radius * radius;		 // Radius squared
 	v = r * gamma / 100; // Step size in pixels
 	s = r * size / 100;	 // Particle size (circles)
 }
-float AUniverse::GetDensity()
-{
-	return density;
-}
+
 void AUniverse::SetDistribution(float number)
 {
 	distribution = number;
 }
-float AUniverse::GetDistribution()
-{
-	return distribution;
-}
+
 void AUniverse::SetSize(float number)
 {
 	size = number;
 	s = r * size / 100;	 // Particle size (circles)
 }
-float AUniverse::GetSize()
-{
-	return size;
-}
+
 void AUniverse::SetAlpha(float number)
 {
 	alpha = number;
 	
 }
-float AUniverse::GetAlpha()
-{
-	return alpha;
-}
+
 void AUniverse::SetBeta(float number)
 {
 	beta = number;
 }
-float AUniverse::GetBeta()
-{
-	return beta;
-}
+
 void AUniverse::SetGamma(float number)
 {
 	
@@ -197,26 +176,21 @@ void AUniverse::SetGamma(float number)
 	v = r * gamma / 100; // Step size in pixels
 
 }
-float AUniverse::GetGamma()
-{
-	return gamma;
-}
+
 void AUniverse::SetRadius(float number)
 {
 	radius = number;
+
 	float area = (pi * radius * radius);						   // Area covered by each particle
 	area = (area * numAgents) / density;						   // Total area required
 	float scale = FMath::Sqrt(UniverseSize * UniverseSize / area); // Scaled to area available
 
 	r = radius * scale;	 // Radius in pixels
-	r2 = r * r;			 // Radius squared
+	r2 = radius * radius;			 // Radius squared
 	v = r * gamma / 100; // Step size in pixels
 	s = r * size / 100;	 // Particle size (circles)
 }
-float AUniverse::GetRadius()
-{
-	return radius;
-}
+
 
 void AUniverse::countNeighbours()
 {
@@ -224,7 +198,7 @@ void AUniverse::countNeighbours()
 
 	int xCells = FMath::Floor(UniverseSize / radius);
 	int xSize = UniverseSize / xCells;
-	TArray<int> grid[800][800];
+	TArray<int> grid[500][500];
 
 	// Assign each particle to a grid cell
 	for (int i = 0; i < numAgents; i++)
@@ -234,8 +208,8 @@ void AUniverse::countNeighbours()
 		float yCoor=FMath::Floor((location.Y ) / xSize);
 		if(xCoor<0) xCoor=0;
 		if(yCoor<0) yCoor=0;
-		if(xCoor>=800) xCoor=799;
-		if(yCoor>=800) yCoor=799;
+		if(xCoor>=500) xCoor=499;
+		if(yCoor>=500) yCoor=499;
 
 
 		grid[(int)(xCoor)][(int)(yCoor)].Add(i);
@@ -315,15 +289,9 @@ void AUniverse::moveAgents()
 {
 	
 	v=r*gamma/100;
-	
+	maxN = 1;
 	for (int i = 0; i < numAgents; i++)
 	{
-		/*     let ps=species[i%species.length];
-			let alpha=ps.alphaRadians;
-			let beta=ps.betaRadians;
-			let v=ps.v; */
-  
-		// Apply changes in orientation
 		Agent = Cast<AAgent>(Agents[i]);
 		float deltaphi = alphaRadians + (betaRadians * Agent->N * sign(Agent->R - Agent->L)); // deltaphi = alpha + beta × N × sign(R - L)
 		Agent->phi = scope(Agent->phi + deltaphi, tau);							// Turn clockwise deltaphi
@@ -339,45 +307,21 @@ void AUniverse::moveAgents()
 		if(yCoor<0) yCoor=0;
 		Agent->SetActorLocation(FVector(xCoor,yCoor,20.0f));	
 		
+		if (Agent->N>maxN) maxN = Agent->N;
 	}
 }
 
 
 void AUniverse::colorAgents() {
- /*  // Clear canvas (or leave trails)
-  if (trails==0) context.fillStyle='#000';
-  else context.fillStyle='rgba(0,0,0,'+(1-(trails/11))+')';
-  context.fillRect(0, 0, cw, ch);
-  
-  // Group particles by species and number of neighbours
-  let group=new Array();
-  for (let i=0; i<species.length; i++) {
-    group[i]=new Array();
-    for (let j=i; j<number; j+=species.length) {
-      if (group[i][particle[j].N]===undefined) group[i][particle[j].N]=new Array();
-      group[i][particle[j].N].push(j);
-    }
+    
+  for (int i = 0; i < numAgents; i++){
+	Agent = Cast<AAgent>(Agents[i]);
+	float n=Agent->N;
+	maxN = 150;
+	Agent->SetColor(FVector(n/(maxN)+0.5,1-(n*n/maxN),n/maxN));
+	UE_LOG(LogTemp, Warning,TEXT("N->   %d , %f "), Agent->N,r);
+
+
+
   }
-  
-  // Draw particle groups
-  for (let i=0; i<species.length; i++) {
-    for (let j=0; j<group[i].length; j++) {
-      if (group[i][j]!==undefined) {
-        context.beginPath();
-        for (let k=0; k<group[i][j].length; k++) {
-          let ip=particle[group[i][j][k]];
-          if (shape=='circles') {
-            // Draw a circle
-            context.moveTo(ip.x, ip.y);
-            context.arc(ip.x, ip.y, species[i].s, 0, tau);
-          } else {
-            // Draw a small square
-            context.rect(ip.x-species[i].s, ip.y-species[i].s, species[i].s2, species[i].s2);
-          }
-        }
-        context.fillStyle='hsla('+hsl(i,j)+','+species[i].opacity+')';
-        context.fill();
-      }
-    }
-  } */
 }

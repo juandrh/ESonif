@@ -28,10 +28,10 @@ private:
 	AActor *Agents[10000];
 	AAgent* Agent;
 	UPROPERTY(EditAnywhere, Category = "General")
-	int numAgents = 60; 
-	int numAgentsChanged = 60; 
+	int numAgents = 1000; 
+	int numAgentsChanged = 500; 
 	UPROPERTY(EditAnywhere, Category = "General")
-	float density = 8.0F;
+	float density = 5.0F;
 	UPROPERTY(EditAnywhere, Category = "General")
 	float distribution = 0.0F;
 
@@ -41,20 +41,19 @@ private:
 	float framerate= 15.0F;; 		
 	UPROPERTY(EditAnywhere, Category = "Graphics settings")
 	float tint= 90.0F;; 
-	UPROPERTY(EditAnywhere, Category = "Graphics settings")
-	float colours= 1.0F;; 
+	
 
 	UPROPERTY(EditAnywhere, Category = "Species parameters")
-	float alpha = 180.0F;
+	float alpha = 114.0F;
 	UPROPERTY(EditAnywhere, Category = "Species parameterss")
-	float beta = 17.0F;
+	float beta = -4.0F;
 	UPROPERTY(EditAnywhere, Category = "Species parameters")
-	float gamma = 13.4F;
+	float gamma = 5.4F;
 	UPROPERTY(EditAnywhere, Category = "Species parameters")
-	float radius = 50.0F; 	
+	float radius = 270.0F; 	
 
 
-	float UniverseSize = 8000.0f;
+	float UniverseSize = 5000.0f;
 	bool isRestarting = true;
 	
 
@@ -73,7 +72,8 @@ private:
 
 	float alphaRadians;
   	float betaRadians;
-     
+	float maxN=1;
+    int ticksElapsed;
 
 
 
@@ -89,36 +89,21 @@ public:
 	FVector GetImpulse();
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: Set Number of Agents"))
 	void SetNumAgents(int32 number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: Get Number of Agents"))
-	int32 GetNumAgents();
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: SetDensity"))
 	void SetDensity(float number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: GetDensity"))
-	float GetDensity();
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: SetDistribution"))
 	void SetDistribution(float number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif:  GetDistribution"))
-	float GetDistribution();
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: SetSize"))
 	void SetSize(float number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif:  GetSize"))
-	float GetSize();
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: SetAlpha"))
-	void SetAlpha(float number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif:  GetAlpha"))
-	float GetAlpha();
+	void SetAlpha(float number);	
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: SetBeta"))
-	void SetBeta(float number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif:  GetBeta"))
-	float GetBeta();
+	void SetBeta(float number);	
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: SetGamma"))
-	void SetGamma(float number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif:  GetGamma"))
-	float GetGamma();
+	void SetGamma(float number);	
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: SetRadius"))
 	void SetRadius(float number);
-	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif:  GetRadius"))
-	float GetRadius();
+	
 
 	UFUNCTION (BlueprintCallable,meta = (DisplayName = "ESonif: Restart Universe"))
 	void restartUniverse();
