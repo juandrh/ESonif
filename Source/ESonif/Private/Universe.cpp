@@ -33,8 +33,8 @@ void AUniverse::BeginPlay()
 void AUniverse::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	//Update();
-	if(!isRestarting) moveAgents();
+	
+	if(!isRestarting) Update();
 }
 
 void AUniverse::Initialization()
@@ -44,22 +44,22 @@ void AUniverse::Initialization()
 
 	for (int i = 0; i < numAgents; i++)
 	{
-		InitLocation = FVector(0.0f, 0.0f, 0.0f);
+		
 		if (distribution == 0.0f)
 		{
 			// Uniform distribution
 			InitLocation = FVector(
-				(UniverseSize)*FMath::FRand() + 0.0f - UniverseSize / 2.0f,
-				(UniverseSize)*FMath::FRand() + 0.0f - UniverseSize / 2.0f,
+				(UniverseSize)*FMath::FRand() + 0.0f ,
+				(UniverseSize)*FMath::FRand() + 0.0f ,
 				50.0f);
 		}
 		else
 		{
 			// Centre-weighted distribution
-			float mx = FMath::FRand() * UniverseSize / 2;
+			//float mx = FMath::FRand() * UniverseSize / 2;
 			InitLocation = FVector(
-				((FMath::FRand() + FMath::FRand() + FMath::FRand()) / 3) * UniverseSize - UniverseSize / 2.0f,
-				((FMath::FRand() + FMath::FRand() + FMath::FRand()) / 3) * UniverseSize - UniverseSize / 2.0f,
+				((FMath::FRand() + FMath::FRand() + FMath::FRand()) / 3) * UniverseSize ,
+				((FMath::FRand() + FMath::FRand() + FMath::FRand()) / 3) * UniverseSize,
 				50.0f);
 		}
 
@@ -102,11 +102,11 @@ void AUniverse::restartUniverse()
 }
 void AUniverse::Update()
 {
-	/* for (int i = 0; i < numAgents; i++)
-	{
-		Agent = Cast<AAgent>(Agents[i]);
-		Agent->move(impulse);
-	} */
+	
+		
+	countNeighbours();
+	moveAgents();
+	//colorAgents();
 }
 
 void AUniverse::SetImpulse(FVector newImpulse)
@@ -143,6 +143,14 @@ float AUniverse::sign(float x)
 void AUniverse::SetDensity(float number)
 {
 	density = number;
+	float area = (pi * radius * radius);						   // Area covered by each particle
+	area = (area * numAgents) / density;						   // Total area required
+	float scale = FMath::Sqrt(UniverseSize * UniverseSize / area); // Scaled to area available
+
+	r = radius * scale;	 // Radius in pixels
+	r2 = r * r;			 // Radius squared
+	v = r * gamma / 100; // Step size in pixels
+	s = r * size / 100;	 // Particle size (circles)
 }
 float AUniverse::GetDensity()
 {
@@ -159,6 +167,7 @@ float AUniverse::GetDistribution()
 void AUniverse::SetSize(float number)
 {
 	size = number;
+	s = r * size / 100;	 // Particle size (circles)
 }
 float AUniverse::GetSize()
 {
@@ -167,6 +176,7 @@ float AUniverse::GetSize()
 void AUniverse::SetAlpha(float number)
 {
 	alpha = number;
+	
 }
 float AUniverse::GetAlpha()
 {
@@ -174,7 +184,7 @@ float AUniverse::GetAlpha()
 }
 void AUniverse::SetBeta(float number)
 {
-	gamma = number;
+	beta = number;
 }
 float AUniverse::GetBeta()
 {
@@ -182,7 +192,10 @@ float AUniverse::GetBeta()
 }
 void AUniverse::SetGamma(float number)
 {
-	beta = number;
+	
+	gamma = number;
+	v = r * gamma / 100; // Step size in pixels
+
 }
 float AUniverse::GetGamma()
 {
@@ -191,6 +204,14 @@ float AUniverse::GetGamma()
 void AUniverse::SetRadius(float number)
 {
 	radius = number;
+	float area = (pi * radius * radius);						   // Area covered by each particle
+	area = (area * numAgents) / density;						   // Total area required
+	float scale = FMath::Sqrt(UniverseSize * UniverseSize / area); // Scaled to area available
+
+	r = radius * scale;	 // Radius in pixels
+	r2 = r * r;			 // Radius squared
+	v = r * gamma / 100; // Step size in pixels
+	s = r * size / 100;	 // Particle size (circles)
 }
 float AUniverse::GetRadius()
 {
@@ -209,7 +230,15 @@ void AUniverse::countNeighbours()
 	for (int i = 0; i < numAgents; i++)
 	{
 		FVector location = Agents[i]->GetActorLocation();
-		grid[(int)(FMath::Floor((location.X + UniverseSize / 2) / xSize))][(int)(FMath::Floor((location.Y + UniverseSize / 2) / xSize))].Add(i);
+		float xCoor=FMath::Floor((location.X) / xSize);
+		float yCoor=FMath::Floor((location.Y ) / xSize);
+		if(xCoor<0) xCoor=0;
+		if(yCoor<0) yCoor=0;
+		if(xCoor>=800) xCoor=799;
+		if(yCoor>=800) yCoor=799;
+
+
+		grid[(int)(xCoor)][(int)(yCoor)].Add(i);
 		Agent = Cast<AAgent>(Agents[i]);
 		Agent->L = 0;
 		Agent->R = 0;
@@ -277,22 +306,26 @@ void AUniverse::scaleRadii()
 	r2 = r * r;			 // Radius squared
 	v = r * gamma / 100; // Step size in pixels
 	s = r * size / 100;	 // Particle size (circles)
-
+	alphaRadians=(alpha/180)*pi;
+  	betaRadians=(beta/180)*pi;
 	// species[i].opacity=Math.min(1, cw/(160*species[i].s));  // Bokeh effect for large particles
 }
 
 void AUniverse::moveAgents()
 {
+	
+	v=r*gamma/100;
+	
 	for (int i = 0; i < numAgents; i++)
 	{
 		/*     let ps=species[i%species.length];
 			let alpha=ps.alphaRadians;
 			let beta=ps.betaRadians;
 			let v=ps.v; */
-
+  
 		// Apply changes in orientation
 		Agent = Cast<AAgent>(Agents[i]);
-		float deltaphi = alpha + (beta * Agent->N * sign(Agent->R - Agent->L)); // deltaphi = alpha + beta × N × sign(R - L)
+		float deltaphi = alphaRadians + (betaRadians * Agent->N * sign(Agent->R - Agent->L)); // deltaphi = alpha + beta × N × sign(R - L)
 		Agent->phi = scope(Agent->phi + deltaphi, tau);							// Turn clockwise deltaphi
 		Agent->phiSin = FMath::Sin(Agent->phi);
 		Agent->phiCos = FMath::Cos(Agent->phi);
@@ -300,11 +333,51 @@ void AUniverse::moveAgents()
 		// Move forward v and wrap screen edges, Pac-Man style
 
 		FVector location = Agent->GetActorLocation();
-		Agent->SetActorLocation(FVector(
-			scope(location.X + (v * Agent->phiCos),  UniverseSize),
-			scope(location.Y + (v * Agent->phiSin),  UniverseSize),
-			20.0f
-		));	
+		float xCoor=scope(location.X + (v * Agent->phiCos),  UniverseSize);
+		float yCoor=scope(location.Y + (v * Agent->phiSin),  UniverseSize);
+		if(xCoor<0) xCoor=0;
+		if(yCoor<0) yCoor=0;
+		Agent->SetActorLocation(FVector(xCoor,yCoor,20.0f));	
 		
 	}
+}
+
+
+void AUniverse::colorAgents() {
+ /*  // Clear canvas (or leave trails)
+  if (trails==0) context.fillStyle='#000';
+  else context.fillStyle='rgba(0,0,0,'+(1-(trails/11))+')';
+  context.fillRect(0, 0, cw, ch);
+  
+  // Group particles by species and number of neighbours
+  let group=new Array();
+  for (let i=0; i<species.length; i++) {
+    group[i]=new Array();
+    for (let j=i; j<number; j+=species.length) {
+      if (group[i][particle[j].N]===undefined) group[i][particle[j].N]=new Array();
+      group[i][particle[j].N].push(j);
+    }
+  }
+  
+  // Draw particle groups
+  for (let i=0; i<species.length; i++) {
+    for (let j=0; j<group[i].length; j++) {
+      if (group[i][j]!==undefined) {
+        context.beginPath();
+        for (let k=0; k<group[i][j].length; k++) {
+          let ip=particle[group[i][j][k]];
+          if (shape=='circles') {
+            // Draw a circle
+            context.moveTo(ip.x, ip.y);
+            context.arc(ip.x, ip.y, species[i].s, 0, tau);
+          } else {
+            // Draw a small square
+            context.rect(ip.x-species[i].s, ip.y-species[i].s, species[i].s2, species[i].s2);
+          }
+        }
+        context.fillStyle='hsla('+hsl(i,j)+','+species[i].opacity+')';
+        context.fill();
+      }
+    }
+  } */
 }

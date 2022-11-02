@@ -70,6 +70,9 @@ private:
     float r2;                // Radius squared
     float v;         // Step size in pixels
     float s;        // Particle size
+
+	float alphaRadians;
+  	float betaRadians;
      
 
 
@@ -125,5 +128,6 @@ public:
 	float scope(int val,int max); 
 	float sign(float x);	
 	void moveAgents();
+	void colorAgents();
 
 };
